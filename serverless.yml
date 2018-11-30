@@ -1,0 +1,16 @@
+service: plate-lookup-service
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+
+package:
+  exclude:
+    - 'node_modules/puppeteer/.local-chromium/**'
+
+functions:
+  dc:
+    handler: handler.index
+    timeout: 30
+    layers:
+      - {'Fn::ImportValue': ChromeLambdaLayer}
