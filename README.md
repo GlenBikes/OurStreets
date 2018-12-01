@@ -14,3 +14,13 @@ npm i
 npx sls deploy
 npx sls invoke -f dc -d '{"state":"dc","number":"ASDF"}'
 ```
+
+## Invoke from python service
+```python
+import json
+import boto3
+
+lambda_client = boto3.client('lambda')
+lambda_client.invoke(FunctionName='plate-lookup-service-dev-dc',
+                     Payload=json.dumps({'state': 'dc', 'number': 'xyz'}))
+```
