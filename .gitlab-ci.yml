@@ -1,4 +1,4 @@
 deploy:
   script:
-    npm i
-    npx sls deploy
+    - npm i
+    - npx sls deploy
