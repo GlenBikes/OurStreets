@@ -2,4 +2,4 @@ image: node:10.13.0
 deploy:
   script:
     - npm i
-    - npx sls deploy
+    - npx sls deploy -f
