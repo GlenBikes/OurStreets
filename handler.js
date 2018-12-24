@@ -9,5 +9,11 @@ module.exports.index = async (event, context) => {
     args: ["--no-sandbox", "--disable-gpu", "--single-process"]
   });
 
-  return lookupPlate(browser, event.state, event.number);
+  let tries = 0;
+  let res = { error: "captcha error" };
+  while (res.error == "captcha error" && tries < 10) {
+    res = await lookupPlate(browser, event.state, event.number);
+    tries++;
+  }
+  return res;
 };
