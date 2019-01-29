@@ -5,7 +5,7 @@ const lookupPlate = require("./lookupPlate");
 module.exports.index = async (event, context) => {
   const browser = await puppeteer.launch({
     headless: true,
-    executablePath: "/opt/headless_shell",
+    executablePath: process.env.IS_LOCAL ? undefined : "/opt/headless_shell",
     args: ["--no-sandbox", "--disable-gpu", "--single-process"]
   });
 
