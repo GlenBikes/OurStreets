@@ -1,7 +1,7 @@
 import sys
-import sqlite3
-import pandas as pd
 from requests_html import HTMLSession
+import json
+
 session = HTMLSession()
 
 CSRF_FIELD = '__RequestVerificationToken'
@@ -9,10 +9,20 @@ CSRF_FIELD = '__RequestVerificationToken'
 # CSRF_COOKIE = '__RequestVerificationToken'
 
 
-def save_html(city, state, number, html):
-    Html_file = open("test_output/{}_{}_{}.html".format(city, state, number),"w")
-    Html_file.write(html)
-    Html_file.close()
+def parse_html(city, state, number, html):
+    citations = html.find('script', containing='citations')
+    citations_text = citations[0].text.split('[')[1].split(']')[0].strip()
+    citation_json = json.loads("[{}]".format(citations_text))
+    citation_list = []
+    for citation in citation_json:
+        ticket = citation['IssueNo']
+        plate =  citation['LicensePlateNumber']
+        state = citation['LicStateProv']
+        issue_date = citation['DisplayFields']['ISSUEDATE']
+        issue_type = citation['IssueType']
+        amount_due = citation['AmountDue']
+        citation_list.append([city, ticket, plate, state, issue_date, issue_type, amount_due])
+    return citation_list
 
 
 def lookup_plate(jurisdiction, state, number):
@@ -47,24 +57,10 @@ def lookup_plate(jurisdiction, state, number):
     if "We're sorry" in error.text:
         return {'error': error.element.text}
     else:
-        save_html(jurisdiction, state, number, resp.html.html)
-    # TODO - parse resp.html & return
+        # parse resp.html & return
+        return parse_html(jurisdiction, state, number, resp.html)
 
 
 if __name__ == '__main__':
-    # Establish Connection
-    con= sqlite3.connect(r'archive.db')
-    cur = con.cursor() 
-    # Get unique list of plates
-    df = pd.read_sql("""SELECT DISTINCT
-                    state,
-                    number
-                    FROM tweets
-                    /* remove hack license plates*/
-                    WHERE (number NOT IN ('NOTAGS', 'notag', 'na', '')) OR
-                          number is NOT NULL;
-                    """, con=con)
-
-    for enum, row in df.iterrows():
-        print(enum)
-        lookup_plate('Fairfax',row['state'], row['number'])
+     # ./dspayments.py Fairfax dc 69 
+    lookup_plate(*sys.argv[1:]) 
