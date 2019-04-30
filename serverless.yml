@@ -1,4 +1,6 @@
 service: plate-lookup-service
+tenant: hmdapp
+app: hmdapp
 
 provider:
   name: aws
@@ -14,3 +16,6 @@ functions:
     timeout: 30
     layers:
       - ${cf:serverless-puppeteer-layers-${opt:stage, self:provider.stage}.ChromeLambdaLayerExport}
+
+plugins:
+  - '@serverless/enterprise-plugin'

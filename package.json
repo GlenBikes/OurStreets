@@ -8,7 +8,8 @@
     "tesseract.js": "^1.0.14"
   },
   "devDependencies": {
-    "serverless": "^1.34.1"
+    "@serverless/enterprise-plugin": "latest",
+    "serverless": "^1.41.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
