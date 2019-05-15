@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+const fs = require("fs");
 const Tesseract = require("tesseract.js");
 
 const screenshotDOMElement = require("./screenshotDOMElement.js");
@@ -42,6 +43,7 @@ module.exports = async (browser, state = "DC", number = "ey9285") => {
   const captcha = text.replace(/\D/g, "");
   await page.type("[name=captchaSText]", captcha);
   console.log("typed captcha");
+  fs.unlinkSync("/tmp/captcha.png");
 
   // avoid to timeout waitForNavigation() after click()
   await Promise.all([page.waitForNavigation(), page.keyboard.press("Enter")]);
@@ -79,6 +81,7 @@ module.exports = async (browser, state = "DC", number = "ey9285") => {
   const regNode = await page.evaluate(
     () => document.querySelector(".reg") !== null
   );
+  /*
   if (regNode) {
     await screenshotDOMElement(page, {
       path: "/tmp/tickets.png",
@@ -94,7 +97,7 @@ module.exports = async (browser, state = "DC", number = "ey9285") => {
     });
   }
   console.log("screenshoted tickets!");
-
+  */
   const html = await page.evaluate(() => document.body.innerHTML);
 
   return { path: "/tmp/tickets.png", total, html };
