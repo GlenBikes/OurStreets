@@ -4,6 +4,7 @@
   "description": "A microservice to look up outstanding tickets in DC",
   "main": "handler.js",
   "dependencies": {
+    "glob": "^7.1.4",
     "puppeteer": "^1.11.0",
     "tesseract.js": "^1.0.14"
   },

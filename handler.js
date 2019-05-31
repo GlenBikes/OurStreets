@@ -1,6 +1,7 @@
 "use strict";
 const puppeteer = require("puppeteer");
 const lookupPlate = require("./lookupPlate");
+const cleanupChromeProfiles = require('./cleanupChromeProfiles')
 
 module.exports.index = async (event, context) => {
   const browser = await puppeteer.launch({
@@ -15,5 +16,6 @@ module.exports.index = async (event, context) => {
     res = await lookupPlate(browser, event.state, event.number);
     tries++;
   }
+  cleanupChromeProfiles()
   return res;
 };
