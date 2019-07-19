@@ -3,7 +3,7 @@ const puppeteer = require("puppeteer");
 const lookupPlate = require("./lookupPlate");
 const cleanupChromeProfiles = require('./cleanupChromeProfiles')
 
-module.exports.index = async (event, context) => {
+module.exports.index = async (event, context, callback) => {
   const browser = await puppeteer.launch({
     headless: true,
     executablePath: process.env.IS_LOCAL ? undefined : "/opt/headless_shell",
@@ -17,5 +17,7 @@ module.exports.index = async (event, context) => {
     tries++;
   }
   cleanupChromeProfiles()
-  return res;
+  console.log('calling callback')
+  context.callbackWaitsForEmptyEventLoop = false
+  callback(null, res);
 };

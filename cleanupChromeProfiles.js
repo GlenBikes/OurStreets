@@ -2,16 +2,8 @@ const fs = require('fs')
 const glob = require('glob')
 
 const cleanupChromeProfiles = () => {
-    glob('/tmp/*', null, (err, files) => console.log('all files: ', files))
-    glob('/tmp/core.headless_shell*', null, (err, files) => {
-        if (err) console.log(err)
-        files.forEach(f => {
-            fs.unlink(f, (err) => {
-                if (err) console.log('Error deleting file, ', f)
-                console.log('file ', f, ' deleted')
-            })
-        })
-    })
+  console.log('all files:', glob.sync('/tmp/*'))
+  glob.sync('/tmp/core.headless_shell*').map(f => fs.unlinkSync(f))
 }
 
 module.exports = cleanupChromeProfiles

@@ -1,4 +1,6 @@
 service: plate-lookup-service
+tenant: hmdapp
+app: hmdapp
 
 provider:
   name: aws
