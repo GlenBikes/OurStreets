@@ -2,6 +2,6 @@ image: node:10.13.0
 deploy:
   script:
     - npm i
-    - npm run deploy --force -s prod
+    - npm run -- deploy --force -s prod
   only:
     - master
