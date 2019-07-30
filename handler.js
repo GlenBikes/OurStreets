@@ -17,7 +17,5 @@ module.exports.index = async (event, context, callback) => {
     tries++;
   }
   cleanupChromeProfiles()
-  console.log('calling callback')
-  context.callbackWaitsForEmptyEventLoop = false
-  callback(null, res);
+  return res;
 };
