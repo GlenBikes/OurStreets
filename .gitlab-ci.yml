@@ -1,7 +1,18 @@
 image: node:10.13.0
-deploy:
+deployDev:
+  script:
+    - npm i
+    - npm run -- deploy --force -s dev
+  only:
+    - master
+  environment:
+    name: dev
+deployProd:
   script:
     - npm i
     - npm run -- deploy --force -s prod
+  when: manual
   only:
     - master
+  environment:
+    name: production
