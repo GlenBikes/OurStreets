@@ -15,4 +15,9 @@ functions:
     handler: handler.index
     timeout: 30
     layers:
-      - ${cf:serverless-puppeteer-layers-${opt:stage, self:provider.stage}.ChromeLambdaLayerExport}
+      - ${cf:serverless-puppeteer-layers-${self:custom.layerStage}.ChromeLambdaLayerExport}
+
+custom:
+  layerStage: ${self:custom.layerStages.${opt:stage, self:provider.stage}, "dev"}
+  layerStages:
+    prod: prod
