@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const fs = require("fs");
 const Tesseract = require("tesseract.js");
 
@@ -102,4 +101,3 @@ module.exports = async (browser, state = "DC", number = "ey9285") => {
 
   return { path: "/tmp/tickets.png", total, html };
 };
-/* eslint-disable no-enable */
