@@ -16,6 +16,7 @@ module.exports.index = async (event, context, callback) => {
     res = await lookupPlate(browser, event.state, event.number);
     tries++;
   }
+  await browser.close();
   cleanupChromeProfiles();
   return res;
 };
