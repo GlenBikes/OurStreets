@@ -99,5 +99,30 @@ module.exports = async (browser, state = "DC", number = "ey9285") => {
   */
   const html = await page.evaluate(() => document.body.innerHTML);
 
-  return { path: "/tmp/tickets.png", total, html };
+  const tickets = await page.evaluate(() => {
+    const tickets = [];
+    if (document.querySelector("li.error")) {
+      for (const row of document.querySelectorAll(
+        'table[width="770"][cellpadding="2"][cellspacing="0"][border="0"] tr + tr + tr ~ tr'
+      )) {
+        tickets.push(
+          Array.from(
+            row.querySelectorAll(
+              ":not(:first-child):not(:nth-child(6)):not(:nth-child(7))"
+            )
+          ).map(el => el.textContent)
+        );
+      }
+    } else {
+      for (const row of document.querySelectorAll(
+        'table[width="100%"][cellpadding="2"][cellspacing="0"][border="0"] table tbody tr:not(:first-child)'
+      )) {
+        if (row.children.length !== 5) continue;
+        tickets.push(Array.from(row.children).map(el => el.textContent));
+      }
+    }
+    return tickets;
+  });
+
+  return { path: "/tmp/tickets.png", total, html, tickets };
 };
