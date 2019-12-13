@@ -13,7 +13,11 @@ module.exports.index = async (event, context, callback) => {
       args: ["--no-sandbox", "--disable-gpu", "--single-process"]
     });
   }
-  
+
+  if (!state || !number) {
+    return {};
+  }
+
   let tries = 0;
   let res = { error: "captcha error" };
   while (res.error == "captcha error" && tries < 10) {
