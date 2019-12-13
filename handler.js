@@ -14,7 +14,7 @@ module.exports.index = async (event, context, callback) => {
     });
   }
 
-  if (!state || !number) {
+  if (!event.state || !event.number) {
     return {};
   }
 
