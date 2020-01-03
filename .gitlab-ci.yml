@@ -1,4 +1,4 @@
-image: node
+image: buildkite/puppeteer
 lint:
   script:
     - npm ci
