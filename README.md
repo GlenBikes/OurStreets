@@ -1,26 +1,10 @@
-# Plate lookup service
+# Plate lookup library
 
-Currently looks up plate in DC by using Pupeteer & Tesseract.js to use this form:
-prodpci.etimspayments.com/pbw/include/dc_parking/input.jsp
+Supports:
+ * etimespayments
+  * DC - https://prodpci.etimspayments.com/pbw/include/dc_parking/input.jsp)
+ * dspayments
+  * Pittsburgh - https://dspayments.com/pittsburgh
+  * Fairfax, VA - https://dspayments.com/Fairfax
 
-Mostly copied from https://github.com/dschep/hows-my-driving-dc
-
-Uses https://gitlab.com/hows-my-driving/serverless-puppeteer-layers
-to have the headless chrome binary for puppeteer in a lambda layer
-
-## Deploy
-```
-npm i
-npx sls deploy
-npx sls invoke -f dc -d '{"state":"dc","number":"ASDF"}'
-```
-
-## Invoke from python service
-```python
-import json
-import boto3
-
-lambda_client = boto3.client('lambda')
-lambda_client.invoke(FunctionName='plate-lookup-service-dev-dc',
-                     Payload=json.dumps({'state': 'dc', 'number': 'xyz'}))
-```
+TODO LOTS OF DOCS

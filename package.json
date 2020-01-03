@@ -1,10 +1,14 @@
 {
-  "name": "plate-lookup-service",
+  "name": "plate-lookup",
   "version": "1.0.0",
-  "description": "A microservice to look up outstanding tickets in DC",
-  "main": "handler.js",
+  "description": "A library to lookup outsanding citation info for cars",
+  "main": "index.js",
   "dependencies": {
+    "fetch-cookie": "^0.7.3",
+    "form-data": "^3.0.0",
     "glob": "^7.1.4",
+    "jsdom": "^15.2.1",
+    "node-fetch": "^2.6.0",
     "puppeteer": "^1.11.0",
     "tesseract.js": "^1.0.14"
   },
@@ -21,12 +25,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/hows-my-driving/plate-lookup-service.git"
+    "url": "git+https://gitlab.com/ourstreets/plate-lookup.git"
   },
-  "author": "dschep@gmail.com",
-  "license": "UNLICENSED",
+  "author": "daniel@ourstreets.com",
+  "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/hows-my-driving/plate-lookup-service/issues"
+    "url": "https://gitlab.com/ourstreets/plate-lookup/issues"
   },
-  "homepage": "https://gitlab.com/hows-my-driving/plate-lookup-service#readme"
+  "homepage": "https://gitlab.com/ourstreets/plate-lookup#readme"
 }
