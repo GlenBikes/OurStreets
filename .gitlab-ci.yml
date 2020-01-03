@@ -6,4 +6,6 @@ lint:
 test:
   script:
     - npm ci
+    # gross hack to make tesseract.js play nice with jest
+    - mkdir -p http:/localhost/$PWD && ln -s $PWD/node_modules/ http:/localhost/$PWD/node_modules
     - npm t
